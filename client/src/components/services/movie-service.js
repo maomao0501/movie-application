@@ -29,6 +29,11 @@ const findPopular = () => {
         .then(response => response.json())
 }
 
+export const findTopRated = () =>
+    fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=a17b23da55290facfec6182186abc701`)
+        .then(response => response.json())
+
+
 export default {
-    findMoviesByTitle, findMovieByIMDB, findPopular
+    findMoviesByTitle, findMovieByIMDB, findPopular, findTopRated
 }

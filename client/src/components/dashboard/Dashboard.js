@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import SearchScreenLogin from "../content/search-screen-login";
 
 const Dashboard = ({
   getCurrentProfile,
@@ -23,7 +23,6 @@ const Dashboard = ({
           How you feel about movie? {user && user.name}
         </p>
       </div>
-
       {profile !== null ? (
         <Fragment>
           <p className="">Want to share your thoughts about movie search with others?</p>
@@ -47,13 +46,11 @@ const Dashboard = ({
                 Delete Account
             </button>
             </div>
-
           </Fragment>
         )
       }
-
+      <SearchScreenLogin/>
     </Fragment >
-
   );
 };
 

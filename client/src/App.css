@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-image: url(asset/dropdown_bg.jpg);
 }
 
 header {
@@ -39,10 +40,6 @@ a {
 
 ul {
   list-style: none;
-}
-
-img {
-  width: 100%;
 }
 
 /*--------Navbar-------- */

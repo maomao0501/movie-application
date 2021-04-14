@@ -4,7 +4,7 @@ import movieService from "../services/movie-service";
 import searchmovie from "../content/searchmovie.png";
 import MovieGrid from "./movie/movie-grid";
 
-const SearchScreen = () => {
+const SearchScreenLogin = () => {
     const history = useHistory();
     const { title, pageId } = useParams();
     const [searchTitle, setSearchTitle] = useState(title);
@@ -17,7 +17,7 @@ const SearchScreen = () => {
     const findMoviesByTitle = (title, pageId) => {
         if (title === undefined || title === "") {
             setPopular(true)
-            movieService.findPopular()
+            movieService.findTopRated()
                 .then((result) => {
                     setResults(result)
                 })
@@ -37,8 +37,6 @@ const SearchScreen = () => {
                             history.push("/search")
                         }
                     })
-
-
             }
         }
     }
@@ -72,7 +70,7 @@ const SearchScreen = () => {
                 </div>
             </div>
             {
-                popular && <h3>Popular Movies</h3>
+                popular && <h3>Top Rated Movies</h3>
             }
             <ul className="list-group">
                 {
@@ -104,4 +102,4 @@ const SearchScreen = () => {
     )
 }
 
-export default SearchScreen;
+export default SearchScreenLogin;

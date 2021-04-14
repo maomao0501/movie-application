@@ -14,6 +14,7 @@ import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import SearchScreen from "./components/content/search-screen";
 import DetailsScreen from "./components/content/details-screen";
+import SearchScreenLogin from "./components/content/search-screen-login";
 
 const App = () => {
   useEffect(() => {

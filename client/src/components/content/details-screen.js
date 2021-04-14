@@ -17,7 +17,7 @@ const DetailsScreen = () => {
     }
     return (
         <div>
-            <button onClick={() => {history.goBack()}}>Back</button>
+            <button  class="btn btn-success" onClick={() => {history.goBack()}}>Back</button>
             <h2>{movie.title}</h2>
             <p>
                 <img width={300} style={{float: "right"}} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
