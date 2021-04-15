@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PopularMoviesTopFive from "../content/popular-movies-landing";
+import TopRatedMovies from "../content/top-rating-movies";
 
 const HomeScreen = ({ isAuthenticated }) => {
   return (
@@ -25,7 +26,15 @@ const HomeScreen = ({ isAuthenticated }) => {
             </Link>
           </div>
         </div>
-        <PopularMoviesTopFive/>
+        {
+          isAuthenticated &&
+          <TopRatedMovies/>
+        }
+        {
+          !isAuthenticated &&
+          <PopularMoviesTopFive/>
+        }
+
       </div>
     </section>
   );
