@@ -61,6 +61,12 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
                 <li>
                   <Link className="nav-link" to="/profiles">Profile</Link>
                 </li>
+                <li>
+                  <Link className="nav-link" to="/watch">Watch List</Link>
+                </li>
+                <li>
+                  <Link className="nav-link" to="/favorite">Favorite List</Link>
+                </li>
                 <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
               </ul>
             </div>

@@ -87,21 +87,25 @@ const SearchScreen = () => {
                         (Number(results.page) > 1) &&
                         <Link to={`/search/${title}/page/${Number(results.page) - 1}`}
                               className="btn btn-outline-primary col-2">
-                            &lt;&lt;
+                            {/*&lt;&lt;*/}
+                            prev
                         </Link>
                     }
-                    <div className="col-2">{results.page}</div>
+                    <div className="col-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {results.page}
+                    </div>
                     {
                         (Number(results.page) < results.total_pages) &&
                         <Link to={`/search/${title}/page/${Number(results.page) + 1}`}
                               className="btn btn-outline-primary col-2">
-                            &gt;&gt;
+                            {/*&gt;&gt;*/}
+                            next
                         </Link>
                     }
                 </div>
             }
         </div>
     )
-}
+};
 
 export default SearchScreen;

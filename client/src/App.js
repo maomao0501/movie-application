@@ -14,7 +14,8 @@ import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import SearchScreen from "./components/content/search-screen";
 import DetailsScreen from "./components/content/details-screen";
-import SearchScreenLogin from "./components/content/search-screen-login";
+import WatchList from "./components/content/watch-list";
+import FavoriteList from "./components/content/favorite-list";
 
 const App = () => {
   useEffect(() => {
@@ -42,6 +43,12 @@ const App = () => {
             </Route>
             <Route path="/details/:imdbID" exact={true}>
               <DetailsScreen/>
+            </Route>
+            <Route path="/watch" exact={true}>
+              <WatchList/>
+            </Route>
+            <Route path="/favorite" exact={true}>
+              <FavoriteList/>
             </Route>
             <Route component={Routes} />
           </Switch>

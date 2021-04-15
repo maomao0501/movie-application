@@ -28,7 +28,8 @@ router.post(
   '/',
   [
     check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists()
+    check('password', 'Password is required').exists(),
+    check('role', 'Role is required').exists()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -36,10 +37,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     try {
       let user = await User.findOne({ email });
+      if (role !== user.role){
+        console.log (' role ', role, 'user.role ', user.role)
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Wrong Role Type' }] });
+      }
 
       if (!user) {
         return res

@@ -11,6 +11,13 @@ const MovieCard = ({movie}) => {
                     <Link to={`/details/${movie.id}`}>
                         {movie.title}
                     </Link>
+                    <div className="controls">
+                        <button className="btn btn-primary">Add to WatchList</button>
+                    </div>
+                    <br/>
+                    <div className="controls">
+                        <button className="btn btn-warning">Add to FavoriteList</button>
+                    </div>
                 </div>
             </div>
         </div>

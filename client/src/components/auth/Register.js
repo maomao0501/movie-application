@@ -10,10 +10,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    role: 'user'
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, password2, role } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +24,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      register({ name, email, password });
+      register({ name, email, password, role});
     }
   };
 
@@ -78,6 +79,15 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   onChange={onChange}
                 />
               </div>
+              <select
+                name="role"
+                id="userFld"
+                onChange={onChange}
+                className="form-control"
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
               <input type="submit" className="btn btn-primary" value="Register" />
             </form>
 

@@ -16,6 +16,7 @@ router.post(
   '/',
   [
     check('name', 'Name is required').not().isEmpty(),
+    check('role', 'Role is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check(
       'password',
@@ -28,10 +29,17 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
+    console.log('role ', role)
+      // Simple validation
+      // if(!name || !role || !email || !password) {
+      //     return res.status(400).json({ msg: 'Please enter all fields' });
+      // }
 
     try {
       let user = await User.findOne({ email });
+
+      console.log('user ', user)
 
       if (user) {
         return res
@@ -50,6 +58,7 @@ router.post(
 
       user = new User({
         name,
+        role,
         email,
         avatar,
         password
@@ -63,7 +72,10 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
+          id: user.id,
+          role: user.role,
+          name: user.name,
+          email: user.email
         }
       };
 

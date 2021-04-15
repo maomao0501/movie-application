@@ -50,8 +50,8 @@ export const register = formData => async dispatch => {
 };
 
 // Login User
-export const login = (email, password) => async dispatch => {
-  const body = { email, password };
+export const login = (email, password, role) => async dispatch => {
+  const body = { email, password, role };
 
   try {
     const res = await api.post('/auth', body);

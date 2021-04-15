@@ -20,7 +20,7 @@ const Routes = props => {
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
-        {/*<Route component={NotFound} />*/}
+        <Route component={NotFound} />
       </Switch>
     </section>
   );

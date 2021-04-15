@@ -18,9 +18,9 @@ const Dashboard = ({
   return (
     <Fragment>
       <div className="home-title">
-        <h1 className="large text-primary">HOME</h1>
+        <h1 className="large text-primary">USERNAME:  {user && user.name}</h1>
         <p className="lead text-light">
-          How you feel about movie? {user && user.name}
+          How you feel about movie?
         </p>
       </div>
       {profile !== null ? (

@@ -7,17 +7,18 @@ import { login } from '../../actions/auth';
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    role:''
   });
 
-  const { email, password } = formData;
+  const { email, password, role } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    login(email, password);
+    login(email, password, role);
   };
 
   if (isAuthenticated) {
@@ -55,6 +56,15 @@ const Login = ({ login, isAuthenticated }) => {
                   minLength="6"
                 />
               </div>
+              <select
+                name="role"
+                id="userFld"
+                onChange={onChange}
+                className="form-control"
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
               <input type="submit" className="btn btn-primary" value="Login" />
             </form>
           </div>
