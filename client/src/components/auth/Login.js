@@ -8,7 +8,7 @@ const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role:''
+    role:'user'
   });
 
   const { email, password, role } = formData;
