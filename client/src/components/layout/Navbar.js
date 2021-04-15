@@ -10,7 +10,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
     <ul>
       <li>
         <Link className="nav-link" to="/dashboard">
-          <span className="hide-sm">HOME</span>
+          <span className="hide-sm">Profile</span>
         </Link>
       </li>
       <li>
@@ -39,8 +39,9 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 
         <section id="nav-bar">
           <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
-            <Link className="navbar-brand" to="/data"
-            ><img style={{ width: "80px", height: "60px" }} src={require('../../asset/tmdb.png')} alt={""} />
+            <Link className="navbar-brand" to="/">
+              <img style={{ width: "80px", height: "60px" }} src={require('../../asset/tmdb.png')} alt={""} />
+              <a className="ml-2">Home</a>
             </Link>
             <button
               className="navbar-toggler"
@@ -59,7 +60,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
                   <Link className="nav-link" to="/search/">Search</Link>
                 </li>
                 <li>
-                  <Link className="nav-link" to="/profiles">Profile</Link>
+                  <Link className="nav-link" to="/profiles">Community</Link>
                 </li>
                 <li>
                   <Link className="nav-link" to="/watch">Watch List</Link>
