@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import SearchScreenLogin from "../content/search-screen-login";
+import ProfileInfo from "./profile";
 
 const Dashboard = ({
   getCurrentProfile,
@@ -18,7 +19,11 @@ const Dashboard = ({
   return (
     <Fragment>
       <div className="home-title">
-        <h1 className="large text-primary">USERNAME:  {user && user.name}</h1>
+        {
+          user &&
+            <ProfileInfo profile={profile} user={user}/>
+        }
+
         <p className="lead text-light">
           How you feel about movie?
         </p>
