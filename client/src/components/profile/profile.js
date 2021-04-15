@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import SearchScreenLogin from "../content/search-screen-login";
-import ProfileInfo from "./profile";
+import ProfileInfo from "./profile-info";
+import ProfileItem from "../community/profiles/ProfileItem";
 
-const Dashboard = ({
+const Profile = ({
   getCurrentProfile,
   deleteAccount,
   auth: { user },
@@ -20,8 +21,9 @@ const Dashboard = ({
     <Fragment>
       <div className="home-title">
         {
-          user &&
-            <ProfileInfo profile={profile} user={user}/>
+          profile &&
+            // <ProfileInfo profile={profile} user={user}/>
+            <ProfileItem key={profile._id} profile={profile}/>
         }
 
         <p className="lead text-light">
@@ -59,7 +61,7 @@ const Dashboard = ({
   );
 };
 
-Dashboard.propTypes = {
+Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -72,5 +74,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
+  Profile
 );

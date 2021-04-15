@@ -3,9 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 import Register from '../auth/Register';
 import Login from '../auth/Login';
 import Alert from '../layout/Alert';
-import Dashboard from '../dashboard/Dashboard';
-import ProfileForm from '../profile-forms/ProfileForm';
-import Profiles from '../profiles/Profiles';
+import Dashboard from '../profile/profile';
+import ProfileForm from '../community/profile-forms/ProfileForm';
+import Profiles from '../community/profiles/Profiles';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
