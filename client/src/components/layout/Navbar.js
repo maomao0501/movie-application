@@ -10,6 +10,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
     <ul>
       <li>
         <Link className="nav-link" to="/dashboard">
+          {/*TODO: use getCurrentProfileto get user profile info, and change tab name to {user.name}*/}
           <span className="hide-sm">Profile</span>
         </Link>
       </li>
