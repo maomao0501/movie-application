@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const ProfileItem = ({
   profile: {
     user: { _id, name, avatar },
-    location,
-    skills
+    bio,
+    movieTag
   }
 }) => {
   return (
@@ -13,14 +14,16 @@ const ProfileItem = ({
       <div className='profile'>
         <img src={avatar} alt='' className='profile-img round-img' />
         <div>
-          <h2>{name}</h2>
-          <p className='my-1'>{location && <span>{location}</span>}</p>
+          <Link to={`/profile/${_id}`}>{name}</Link>
+          <p className='my-1'>My bio: {bio}</p>
+          <p>Favorite movie genre:</p>
           <ul>
-            {skills.slice(0, 4).map((skill, index) => (
+            {movieTag.slice(0, 4).map((tag, index) => (
               <li key={index} className='text-primary'>
-                {skill}
+                {tag}
               </li>
             ))}
+
           </ul>
         </div>
 
