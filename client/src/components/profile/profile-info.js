@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileInfo = ({profile, user}) => {
+const ProfileInfo = ({user}) => {
     return (
         <>
             <div className="mr-3">
@@ -36,8 +36,8 @@ const ProfileInfo = ({profile, user}) => {
                         <div className="col-sm-10">
                             <select className="form-control"
                                     id="roleFld"
-                                    value={user.type}>
-                                <option selected value="user">User</option>
+                                    value={user.role}>
+                                <option value="user">User</option>
                                 <option value="admin">Admin</option>
                             </select>
                         </div>

@@ -6,6 +6,7 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import SearchScreenLogin from "../content/search-screen-login";
 import ProfileInfo from "./profile-info";
 import ProfileItem from "../community/profiles/ProfileItem";
+import ManageUsers from "./manage-users";
 
 const Profile = ({
   getCurrentProfile,
@@ -18,45 +19,57 @@ const Profile = ({
   }, [getCurrentProfile]);
 
   return (
-    <Fragment>
+    <>
       <div className="home-title">
         {
-          profile &&
-            <ProfileInfo profile={profile} user={user}/>
+          user &&
+            <ProfileInfo user={user}/>
         }
-
-        <p className="lead text-light">
-          How you feel about movie?
-        </p>
       </div>
-      {profile !== null ? (
-        <Fragment>
-          <p className="">Want to share your thoughts about movie search with others?</p>
-          <div className="my-2">
-            <Link to="/edit-profile" className="btn btn-dark">
-              Edit thoughts
-            </Link>
-            <button className="btn btn-light" onClick={() => deleteAccount()}>
-              Delete Account
-            </button>
-          </div>
-        </Fragment>
-      ) : (
-          <Fragment>
-            <p className="">Want to share your thoughts about movie search with others?</p>
-            <div className="my-2">
-              <Link to="/create-profile" className="btn btn-primary my-1">
-                Create thoughts
-          </Link>
-              <button className="btn btn-light" onClick={() => deleteAccount()}>
-                Delete Account
-            </button>
+
+        {
+            user && user.role === "user" &&
+            <div className="container bg-color-light">
+                {profile !== null ? (
+                    <>
+                        <p className="">
+                            How you feel about movie?
+                        </p>
+                        <p className="">Want to share your thoughts about movie search with others?</p>
+                        <div className="my-2">
+                            <Link to="/edit-profile" className="btn btn-dark">
+                                Edit thoughts
+                            </Link>
+                            <button className="btn btn-light" onClick={() => deleteAccount()}>
+                                Delete Account
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <p className="">Want to share your thoughts about movie search with others?</p>
+                        <div className="my-2">
+                            <Link to="/create-profile" className="btn btn-primary my-1">
+                                Create thoughts
+                            </Link>
+                            <button className="btn btn-light" onClick={() => deleteAccount()}>
+                                Delete Account
+                            </button>
+                        </div>
+                    </>
+                )
+                }
             </div>
-          </Fragment>
-        )
-      }
+        }
+        {
+          user && user.role === "admin" &&
+              <ManageUsers/>
+        }
+        {
+          console.log(user)
+        }
       <SearchScreenLogin/>
-    </Fragment >
+    </ >
   );
 };
 
