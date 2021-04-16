@@ -16,6 +16,7 @@ import SearchScreen from "./components/content/search-screen";
 import DetailsScreen from "./components/content/details-screen";
 import WatchList from "./components/content/watch-list";
 import FavoriteList from "./components/content/favorite-list";
+import UserProfileManage from "./components/profile/user-profile-manage";
 
 const App = () => {
   useEffect(() => {
@@ -49,6 +50,10 @@ const App = () => {
             </Route>
             <Route path="/favorite" exact={true}>
               <FavoriteList/>
+            </Route>
+            <Route path="/profile/:uid" exact={true}>
+              {/*TODO*/}
+              <UserProfileManage/>
             </Route>
             <Route component={Routes} />
           </Switch>
