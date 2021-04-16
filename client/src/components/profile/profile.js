@@ -22,8 +22,7 @@ const Profile = ({
       <div className="home-title">
         {
           profile &&
-            // <ProfileInfo profile={profile} user={user}/>
-            <ProfileItem key={profile._id} profile={profile}/>
+            <ProfileInfo profile={profile} user={user}/>
         }
 
         <p className="lead text-light">
