@@ -151,6 +151,7 @@ router.delete('/', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//TODO: delete user using admin account
 
 // @route    PUT api/profile/experience
 // @desc     Add profile experience
