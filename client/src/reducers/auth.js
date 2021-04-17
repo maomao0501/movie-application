@@ -58,6 +58,7 @@ export default function (state = initialState, action) {
         loading: false,
         user: null
       };
+    // TODO: UPDATE_USER update profile information
     default:
       return state;
   }
