@@ -10,25 +10,12 @@ const ProfileItem = ({
   }
 }) => {
   return (
-    <div className="col-sm-4">
-      <div className='profile'>
-        <img src={avatar} alt='' className='profile-img round-img' />
-        <div>
-          <Link to={`/profile/${_id}`}>{name}</Link>
-          <p className='my-1'>My bio: {bio}</p>
-          <p>Favorite movie genre:</p>
-          <ul>
-            {movieTag.slice(0, 4).map((tag, index) => (
-              <li key={index} className='text-primary'>
-                {tag}
-              </li>
-            ))}
-
-          </ul>
-        </div>
-
-      </div>
-    </div>
+      <li className="list-group-item">
+        {/*TODO: add link "/profile/:uid"*/}
+        {/*TODO: user-profile component*/}
+        {/*<UserProfile profile={this.profile}/>*/}
+        <Link to={`/profile/${_id}`}>{name}</Link>
+      </li>
   );
 };
 

@@ -22,8 +22,27 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 See how people think about MovieDB here
           </p>
             </div>
+            {/*<div className="col-sm-4">*/}
+            {/*  <div className='profile'>*/}
+            {/*    <img src={avatar} alt='' className='profile-img round-img' />*/}
+            {/*    <div>*/}
+            {/*      <Link to={`/profile/${_id}`}>{name}</Link>*/}
+            {/*      <p className='my-1'>My bio: {bio}</p>*/}
+            {/*      <p>Favorite movie genre:</p>*/}
+            {/*      <ul>*/}
+            {/*        {movieTag.slice(0, 4).map((tag, index) => (*/}
+            {/*            <li key={index} className='text-primary'>*/}
+            {/*              {tag}*/}
+            {/*            </li>*/}
+            {/*        ))}*/}
+            
+            {/*      </ul>*/}
+            {/*    </div>*/}
+
+            {/*  </div>*/}
+            {/*</div>*/}
             <div className='profiles'>
-              <div className="row">
+              <ul className="list-group">
                 {profiles.length > 0 ? (
                   profiles.map(profile => (
                     <ProfileItem key={profile._id} profile={profile} />
@@ -31,7 +50,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 ) : (
                     <h4>No profiles found...</h4>
                   )}
-              </div>
+              </ul>
             </div>
           </Fragment>
         )}
