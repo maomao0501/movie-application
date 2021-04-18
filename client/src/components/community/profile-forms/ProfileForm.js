@@ -5,9 +5,18 @@ import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../actions/profile";
 
 const initialState = {
-  // TODO: delete unused attributes
-  movieTag: "",
+  company: "",
+  website: "",
+  location: "",
+  status: "",
+  skills: "",
+  githubusername: "",
   bio: "",
+  twitter: "",
+  facebook: "",
+  linkedin: "",
+  youtube: "",
+  instagram: "",
 };
 
 const ProfileForm = ({
@@ -30,13 +39,13 @@ const ProfileForm = ({
       for (const key in profile.social) {
         if (key in profileData) profileData[key] = profile.social[key];
       }
-      if (Array.isArray(profileData.movieTag))
-        profileData.movieTag = profileData.movieTag.join(", ");
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(", ");
       setFormData(profileData);
     }
   }, [loading, getCurrentProfile, profile]);
 
-  const { movieTag, bio } = formData;
+  const { location, skills, githubusername, bio } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,19 +64,31 @@ const ProfileForm = ({
       <form className="form form-profile" onSubmit={onSubmit}>
         <div className="form-group">
           <p className="form-text">
-            Your favorite movies:
-            (Please use comma to separate movies)
+            Please use comma separated words and sentence (eg. Horrible movies, 10 disgusting horror movies you watch and then never forget)
           </p>
           <input
             type="text"
             placeholder="Describe Movie"
-            name="movieTag"
-            value={movieTag}
+            name="skills"
+            value={skills}
             onChange={onChange}
           />
         </div>
         <div className="form-group">
-          <p className="form-text">Something you want to share about yourself</p>
+          <p className="form-text">
+            Which specific part you are most interested about Movie Search (eg.
+            movie type, movie details, movie profile)
+          </p>
+          <input
+            type="text"
+            placeholder="Your interests"
+            name="githubusername"
+            value={githubusername}
+            onChange={onChange}
+          />
+        </div>
+        <p className="form-text">Something you want to share about yourself</p>
+        <div className="form-group">
           <textarea
             placeholder="Something you want to share"
             name="bio"
