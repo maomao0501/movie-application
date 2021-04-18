@@ -22,8 +22,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 See how people think about MovieDB here
           </p>
             </div>
-            <div className='profiles'>
-              <div className="row">
+            <div className=''>
+              <ul className="list-group">
                 {profiles.length > 0 ? (
                   profiles.map(profile => (
                     <ProfileItem key={profile._id} profile={profile} />
@@ -31,7 +31,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 ) : (
                     <h4>No profiles found...</h4>
                   )}
-              </div>
+              </ul>
             </div>
           </Fragment>
         )}
