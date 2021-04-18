@@ -17,6 +17,7 @@ import DetailsScreen from "./components/content/details-screen";
 import WatchList from "./components/content/watch-list";
 import FavoriteList from "./components/content/favorite-list";
 import UserProfileManage from "./components/profile/user-profile-manage";
+import UserProfile from "./components/community/profiles/user-profile";
 
 const App = () => {
   useEffect(() => {
@@ -52,8 +53,7 @@ const App = () => {
               <FavoriteList/>
             </Route>
             <Route path="/profile/:uid" exact={true}>
-              {/*TODO*/}
-              <UserProfileManage/>
+              <UserProfile/>
             </Route>
             <Route component={Routes} />
           </Switch>
