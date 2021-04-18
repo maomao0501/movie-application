@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import SearchScreenLogin from "../content/search-screen-login";
 import ProfileInfo from "./profile-info";
-import ProfileItem from "../community/profiles/ProfileItem";
 import ManageUsers from "./manage-users";
 
 const Profile = ({

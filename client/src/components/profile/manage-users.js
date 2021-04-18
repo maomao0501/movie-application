@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProfileItem from '../community/profiles/ProfileItem';
 import { getProfiles } from '../../actions/profile';
 
 import { useEffect } from 'react';

@@ -8,6 +8,7 @@ import ProfileForm from '../community/profile-forms/ProfileForm';
 import Profiles from '../community/profiles/Profiles';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
+import UserProfile from "../community/profiles/user-profile";
 
 const Routes = props => {
   return (
@@ -17,6 +18,10 @@ const Routes = props => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/profiles" component={Profiles} />
+          <Route exact path="/dashboard/:profileId"
+                 component={UserProfile}
+                 render={props =>
+                     <UserProfile {...props} />}/>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />

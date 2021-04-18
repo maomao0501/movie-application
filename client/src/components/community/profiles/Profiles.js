@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
-import ProfileItem from './ProfileItem';
 import { getProfiles } from '../../../actions/profile';
+import {Link} from "react-router-dom";
+import { withRouter } from "react-router";
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
@@ -11,11 +12,11 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   }, [getProfiles]);
 
   return (
-    <Fragment>
+    <>
       {loading ? (
         <Spinner />
       ) : (
-          <Fragment>
+          <>
             <div className="home-title">
               <h1 className='large text-primary'>Community</h1>
               <p className='lead text-center text-light'>
@@ -26,16 +27,26 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               <ul className="list-group">
                 {profiles.length > 0 ? (
                   profiles.map(profile => (
-                    <ProfileItem key={profile._id} profile={profile} />
+                      <li className="list-group-item">
+                        <Link to={{
+                          pathname: `/dashboard/${profile.user._id}`,
+                          state: {profile}
+                        }}>
+                          {profile.user.name}
+                          {
+                            console.log(profile)
+                          }
+                        </Link>
+                      </li>
                   ))
                 ) : (
                     <h4>No profiles found...</h4>
                   )}
               </ul>
             </div>
-          </Fragment>
+          </>
         )}
-    </Fragment>
+    </>
   );
 };
 
@@ -51,4 +62,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getProfiles }
-)(Profiles);
+)(withRouter(Profiles));
