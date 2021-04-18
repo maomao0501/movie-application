@@ -14,7 +14,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) =
   const authLinks = (
     <ul>
       <li>
-        <Link className="nav-link" to="/profile">
+        <Link className="nav-link" to="/dashboard">
           {
             isAuthenticated && user &&
               <span className="hide-sm">{user.name}</span>
