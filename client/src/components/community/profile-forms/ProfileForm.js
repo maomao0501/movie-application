@@ -38,8 +38,9 @@ const ProfileForm = ({
 
   const { movieTag, bio } = formData;
 
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
