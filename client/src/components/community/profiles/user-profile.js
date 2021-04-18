@@ -1,9 +1,24 @@
 import React, {useEffect} from 'react'
+import {Link, useParams} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router";
+import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
+import {connect} from "react-redux";
 
-const UserProfile = (props) => {
-    const profile = props.location.state.profile
+const UserProfile = (props,
+                     {
+                         isAuthenticated,
+                         adminDeleteAccount,
+                         getCurrentProfile,
+                         auth: { user },
+                         profile: { profile }
+                     }) => {
+    useEffect(() => {
+        if (isAuthenticated)
+            getCurrentProfile();
+    }, [getCurrentProfile]);
+    const {profileId} = useParams();
+    const p = props.location.state.profile
     return(
         <div>
             {/*TODO: change css style*/}
@@ -11,13 +26,13 @@ const UserProfile = (props) => {
             {/*TODO: if log in as user, show watch list / favorite*/}
             {/*TODO: if log in as admin, show manage user */}
             <div className='profile'>
-                <img src={profile.user.avatar} alt='' className='profile-img round-img' />
+                <img src={p.user.avatar} alt='' className='profile-img round-img' />
                 <div>
-                    <h2>This is {profile.user.name} 's profile:</h2>
-                    <p className='my-1'>My bio: {profile.bio}</p>
+                    <h2>This is {p.user.name} 's profile:</h2>
+                    <p className='my-1'>My bio: {p.bio}</p>
                     <p>Favorite movie genre:</p>
                     <ul>
-                        {profile.movieTag.slice(0, 4).map((tag, index) => (
+                        {p.movieTag.slice(0, 4).map((tag, index) => (
                             <li key={index} className='text-primary'>
                                 {tag}
                             </li>
@@ -25,14 +40,40 @@ const UserProfile = (props) => {
 
                     </ul>
                 </div>
-
+                {
+                    props.isAuthenticated && props.user && props.user.role === "admin" &&
+                    <Link to="/">
+                        <button className="btn btn-danger" onClick={() => props.adminDeleteAccount(profileId)}>
+                            admin delete
+                        </button>
+                    </Link>
+                }
             </div>
         </div>
     )
 }
 
+// UserProfile.propTypes = {
+//     profile: PropTypes.object.isRequired
+// };
+//
+// export default withRouter(UserProfile)
+
 UserProfile.propTypes = {
-    profile: PropTypes.object.isRequired
+    adminDeleteAccount: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool
 };
 
-export default withRouter(UserProfile)
+const mapStateToProps = state => ({
+    auth: state.auth,
+    profile: state.profile,
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+    mapStateToProps,
+    { getCurrentProfile, adminDeleteAccount }
+)(withRouter(UserProfile));

@@ -22,7 +22,7 @@ const Routes = props => {
                component={UserProfile}
                render={props =>
                    <UserProfile {...props} />}/>
-        <PrivateRoute exact path="/profile" component={Profile} />
+        <Route exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
         <Route component={NotFound} />

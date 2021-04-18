@@ -221,3 +221,22 @@ export const deleteAccount = () => async (dispatch) => {
     }
   }
 };
+
+// Delete account & profile
+export const adminDeleteAccount = (profileId) => async (dispatch) => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      await api.delete(`/profile/${profileId}`);
+
+      dispatch({ type: CLEAR_PROFILE });
+      dispatch({ type: ACCOUNT_DELETED });
+
+      dispatch(setAlert('Your account has been permanently deleted'));
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  }
+};

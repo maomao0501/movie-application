@@ -52,9 +52,9 @@ const App = () => {
             <Route path="/favorite" exact={true}>
               <FavoriteList/>
             </Route>
-            <Route path="/profile/:uid" exact={true}>
-              <UserProfile/>
-            </Route>
+            {/*<Route path="/profile/:profileId" exact={true}>*/}
+            {/*  <UserProfile/>*/}
+            {/*</Route>*/}
             <Route component={Routes} />
           </Switch>
         </Fragment>
