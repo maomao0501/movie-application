@@ -17,9 +17,14 @@ const ManageUsers = ({ getProfiles, profile: { profiles, loading } }) => {
             <ul className="list-group">
                 {profiles.map(profile => (
                     <li className="list-group-item">
-                        {/*TODO:add user profile link, delete btn*/}
-                        <Link to="/">
-                            {profile.user.name}
+                        {profile.user.name}
+                        <Link to={{
+                            pathname: `/profile/${profile.user._id}`,
+                            state: {profile}
+                        }} className="float-right">
+                            <button className="btn btn-primary">
+                                Manage Accounts
+                            </button>
                         </Link>
                     </li>
                 ))}

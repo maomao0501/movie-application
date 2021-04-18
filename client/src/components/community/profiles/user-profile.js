@@ -5,18 +5,13 @@ import { withRouter } from "react-router";
 import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
 import {connect} from "react-redux";
 
-const UserProfile = (props,
-                     {
-                         isAuthenticated,
-                         adminDeleteAccount,
-                         getCurrentProfile,
-                         auth: { user },
-                         profile: { profile }
-                     }) => {
+const UserProfile = (props) => {
     useEffect(() => {
-        if (isAuthenticated)
-            getCurrentProfile();
-    }, [getCurrentProfile]);
+        {
+            props.isAuthenticated &&
+            props.getCurrentProfile();
+        }
+        }, [props.getCurrentProfile]);
     const {profileId} = useParams();
     const p = props.location.state.profile
     return(
@@ -41,7 +36,7 @@ const UserProfile = (props,
                     </ul>
                 </div>
                 {
-                    props.isAuthenticated && props.user && props.user.role === "admin" &&
+                    props.isAuthenticated && props.auth.user && props.auth.user.role === "admin" &&
                     <Link to="/">
                         <button className="btn btn-danger" onClick={() => props.adminDeleteAccount(profileId)}>
                             admin delete
@@ -63,13 +58,13 @@ UserProfile.propTypes = {
     adminDeleteAccount: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+    // profile: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     auth: state.auth,
-    profile: state.profile,
+    // profile: state.profile,
     isAuthenticated: state.auth.isAuthenticated
 });
 

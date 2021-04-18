@@ -26,9 +26,11 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) =
         </Link>
       </li>
       <li>
-        <a className="nav-link" onClick={logout} href="#!">
-          <span className="hide-sm">LOGOUT</span>
-        </a>
+        <Link to="/">
+          <a className="nav-link" onClick={logout} href="#!">
+            <span className="hide-sm">LOGOUT</span>
+          </a>
+        </Link>
       </li>
     </ul>
   );
