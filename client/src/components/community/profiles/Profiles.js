@@ -2,14 +2,20 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
-import { getProfiles } from '../../../actions/profile';
+import { getProfiles, getCurrentProfile } from '../../../actions/profile';
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({
+                    getProfiles,
+                    getCurrentProfile,
+                    auth: { isAuthenticated, user },
+                    profile: { profiles, loading }
+}) => {
   useEffect(() => {
+    getCurrentProfile();
     getProfiles();
-  }, [getProfiles]);
+  }, [getProfiles, getCurrentProfile]);
 
   return (
     <>
@@ -26,17 +32,34 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             <div className='profiles'>
               <ul className="list-group">
                 {profiles.length > 0 ? (
-                  profiles.map(profile => (
+                  profiles.map(p => (
                       <li className="list-group-item">
-                        <Link to={{
-                          pathname: `/profile/${profile.user._id}`,
-                          state: {profile}
-                        }}>
-                          {profile.user.name}
+                        {
+                          isAuthenticated &&
+                          user._id === p.user._id &&
+                          <Link to="/profile">
+                            {p.user.name}
+                          </Link>
+                        }
+                        {
+                             !isAuthenticated &&
+                             <Link to={{
+                                   pathname: `/profile/${p.user._id}`,
+                                   state: {profile: p}
+                                 }}>
+                                   {p.user.name}
+                             </Link>
+                        }
                           {
-                            console.log(profile)
+                              isAuthenticated &&
+                              user._id !== p.user._id &&
+                              <Link to={{
+                                  pathname: `/profile/${p.user._id}`,
+                                  state: {profile: p}
+                              }}>
+                                  {p.user.name}
+                              </Link>
                           }
-                        </Link>
                       </li>
                   ))
                 ) : (
@@ -51,15 +74,18 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 };
 
 Profiles.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  { getProfiles, getCurrentProfile }
 )(withRouter(Profiles));
