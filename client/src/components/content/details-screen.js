@@ -1,14 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import movieService from "../services/movie-service";
+import CommentList from "./comment/comment-list";
+import { getComments } from '../../actions/comment';
+import {connect} from "react-redux";
+import PropTypes from 'prop-types';
+import Spinner from "../layout/Spinner";
 
-const DetailsScreen = () => {
+const DetailsScreen = ({
+                           getComments,
+                           comment: { comments, loading }
+                       }) => {
     const {imdbID} = useParams();
     const history = useHistory();
     const [movie, setMovie] = useState({});
     useEffect(() => {
-        findMovieByIMDB()
-    },[])
+        findMovieByIMDB();
+        getComments()
+    },[getComments])
     const findMovieByIMDB = () => {
         movieService.findMovieByIMDB(imdbID)
             .then((data) => {
@@ -29,8 +38,27 @@ const DetailsScreen = () => {
                 {movie.release_date}
             </div>
             {/*{JSON.stringify(movie)}*/}
+            //TODO: find comments
+            {
+                loading?
+                    <Spinner /> :
+                    <CommentList comments={comments}/>
+            }
         </div>
     )
 }
 
-export default DetailsScreen;
+
+DetailsScreen.propTypes = {
+    getComments: PropTypes.func.isRequired,
+    comment: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    comment: state.comment
+});
+
+export default connect(
+    mapStateToProps,
+    { getComments }
+)(DetailsScreen);
