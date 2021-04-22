@@ -22,19 +22,28 @@ const UserProfile = (props) => {
             {/*TODO: if log in as admin, show manage user */}
             <div className='profile'>
                 <img src={p.user.avatar} alt='' className='profile-img round-img' />
-                <div>
-                    <h2>This is {p.user.name} 's profile:</h2>
-                    <p className='my-1'>My bio: {p.bio}</p>
-                    <p>Favorite movie genre:</p>
-                    <ul>
-                        {p.movieTag.slice(0, 4).map((tag, index) => (
-                            <li key={index} className='text-primary'>
-                                {tag}
-                            </li>
-                        ))}
+                {
+                    props.isAuthenticated && props.auth.user && props.auth.user.role === "user" &&
+                    <div>
+                        <h2>This is {p.user.name} 's profile:</h2>
+                        <p className='my-1'>My bio: {p.bio}</p>
+                        <p>Favorite movie genre:</p>
+                        <ul>
+                            {p.movieTag.slice(0, 4).map((tag, index) => (
+                                <li key={index} className='text-primary'>
+                                    {tag}
+                                </li>
+                            ))}
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                }
+                {
+                    !props.isAuthenticated && !props.auth.user &&
+                    <Link to="/login">
+                        Please Login to see the profile!
+                    </Link>
+                }
                 {
                     props.isAuthenticated && props.auth.user && props.auth.user.role === "admin" &&
                     <Link to="/">
