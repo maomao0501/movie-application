@@ -43,7 +43,7 @@ router.post(
 // @desc     Get all comments
 // @access   Private
 router.get('/',
-    [auth, [check('text', 'Text is required').not().isEmpty()]],
+    // [auth, [check('text', 'Text is required').not().isEmpty()]],
     async (req, res) => {
     try {
         const comments = await Comment.find().sort({ date: -1 });
