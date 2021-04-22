@@ -1,9 +1,12 @@
 import React from 'react'
 
-const CommentItem = ({cm}) =>
+const CommentItem = ({comment}) =>
     <div>
         <li className="list-group-item">
-            {cm._id}
+            {
+                comment._id
+            }
+            { console.log(comment) }
         </li>
     </div>
 

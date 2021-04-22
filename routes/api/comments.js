@@ -22,14 +22,14 @@ router.post(
         try {
             const user = await User.findById(req.user.id).select('-password');
 
-            const newPost = new Post({
+            const newComment = new Comment({
                 user: req.user.id,
                 movie: req.body.movieId,
                 text: req.body.text,
                 avatar: user.avatar
             });
 
-            const post = await newPost.save();
+            const post = await newComment.save();
 
             res.json(post);
         } catch (err) {
@@ -42,7 +42,9 @@ router.post(
 // @route    GET api/comments
 // @desc     Get all comments
 // @access   Private
-router.get('/', async (req, res) => {
+router.get('/',
+    [auth, [check('text', 'Text is required').not().isEmpty()]],
+    async (req, res) => {
     try {
         const comments = await Comment.find().sort({ date: -1 });
         res.json(comments);
