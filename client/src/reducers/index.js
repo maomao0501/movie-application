@@ -3,10 +3,12 @@ import alert from './alert';
 import auth from './auth';
 import profile from './profile';
 import comment from './comment';
+import watchlist from './watchlist';
 
 export default combineReducers({
   alert,
   auth,
   profile,
-  comment
+  comment,
+  watchlist
 });

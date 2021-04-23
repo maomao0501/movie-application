@@ -46,9 +46,9 @@ const App = () => {
             <Route path="/details/:imdbID" exact={true}>
               <DetailsScreen/>
             </Route>
-            <Route path="/watch" exact={true}>
-              <WatchList/>
-            </Route>
+            {/*<Route path="/watchlist" exact={true}>*/}
+            {/*  <WatchList/>*/}
+            {/*</Route>*/}
             <Route path="/favorite" exact={true}>
               <FavoriteList/>
             </Route>

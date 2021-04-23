@@ -79,7 +79,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) =
                 {
                   isAuthenticated &&
                   <li>
-                    <Link className="nav-link" to="/watch">Watch List</Link>
+                    <Link className="nav-link" to="/watchlist">Watch List</Link>
                   </li>
                 }
                 {
