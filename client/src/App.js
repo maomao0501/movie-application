@@ -46,15 +46,15 @@ const App = () => {
             <Route path="/details/:imdbID" exact={true}>
               <DetailsScreen/>
             </Route>
-            <Route path="/watch" exact={true}>
-              <WatchList/>
-            </Route>
+            {/*<Route path="/watchlist" exact={true}>*/}
+            {/*  <WatchList/>*/}
+            {/*</Route>*/}
             <Route path="/favorite" exact={true}>
               <FavoriteList/>
             </Route>
-            <Route path="/profile/:uid" exact={true}>
-              <UserProfile/>
-            </Route>
+            {/*<Route path="/profile/:profileId" exact={true}>*/}
+            {/*  <UserProfile/>*/}
+            {/*</Route>*/}
             <Route component={Routes} />
           </Switch>
         </Fragment>

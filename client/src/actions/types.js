@@ -23,3 +23,8 @@ export const DELETE_POST = 'DELETE_POST';
 export const ADD_POST = 'ADD_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const COMMENT_ERROR = 'COMMENT_ERROR';
+export const GET_WATCHLIST ='GET_WATCHLIST';
+export const WATCHLIST_ERROR = 'WATCHLIST_ERROR';
+// TODO: GET FAVORITE_LIST

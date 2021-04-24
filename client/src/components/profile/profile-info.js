@@ -4,6 +4,7 @@ const ProfileInfo = ({user}) => {
     return (
         <>
             <div className="mr-3">
+                {/*TODO: update info*/}
                 <h1 className="mx-auto text-primary">My Profile Info</h1>
                 <form>
                     <div className="form-group row">

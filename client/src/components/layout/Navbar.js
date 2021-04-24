@@ -26,9 +26,11 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) =
         </Link>
       </li>
       <li>
-        <a className="nav-link" onClick={logout} href="#!">
-          <span className="hide-sm">LOGOUT</span>
-        </a>
+        <Link to="/">
+          <a className="nav-link" onClick={logout} href="#!">
+            <span className="hide-sm">LOGOUT</span>
+          </a>
+        </Link>
       </li>
     </ul>
   );
@@ -77,7 +79,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) =
                 {
                   isAuthenticated &&
                   <li>
-                    <Link className="nav-link" to="/watch">Watch List</Link>
+                    <Link className="nav-link" to="/watchlist">Watch List</Link>
                   </li>
                 }
                 {
