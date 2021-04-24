@@ -23,13 +23,17 @@ const WatchList = (
             {
                 !loading &&
                     <ul className="list-group">
-                        {movies.map((movie) =>
+                        {
+                            movies.filter((movie) =>
+                                movie.user === user._id
+                            ).map((movie) =>
                             <li className="list-group-item">
                                 {movie.movie}
                             </li>
                         )}
                     </ul>
             }
+
         </div>
     )
 }
