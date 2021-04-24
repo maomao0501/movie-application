@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getProfiles, getCurrentProfile } from '../../actions/profile';
 import { getWatchlist } from '../../actions/watchlist'
 import CommentItem from "./comment/comment-item";
+import {Link} from "react-router-dom";
 
 const WatchList = (
     {
@@ -28,7 +29,14 @@ const WatchList = (
                                 movie.user === user._id
                             ).map((movie) =>
                             <li className="list-group-item">
-                                {movie.movie}
+                                <Link to={`/details/${movie.movie}`}>
+                                    {/*TODO: match movie id to movie object*/}
+                                    {movie.movie}
+                                </Link>
+                                {/*TODO: remove btn*/}
+                                <button className="btn btn-danger float-right">
+                                    Remove
+                                </button>
                             </li>
                         )}
                     </ul>
