@@ -4,6 +4,7 @@ import { setAlert } from './alert';
 import {
   GET_PROFILE,
   GET_PROFILES,
+  GET_PROFILE_BY_ID,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
@@ -52,7 +53,6 @@ export const getProfiles = () => async (dispatch) => {
 export const getProfileById = (userId) => async (dispatch) => {
   try {
     const res = await api.get(`/profile/user/${userId}`);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -64,6 +64,7 @@ export const getProfileById = (userId) => async (dispatch) => {
     });
   }
 };
+
 
 // Get Github repos
 export const getGithubRepos = (username) => async (dispatch) => {

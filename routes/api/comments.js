@@ -5,7 +5,7 @@ const auth = require('../../middleware/auth');
 
 const Comment = require('../../models/comment');
 const User = require('../../models/User');
-const checkObjectId = require('../../middleware/checkObjectId');
+var ObjectId = require('mongodb').ObjectId;
 
 // @route    POST api/comments
 // @desc     Create a comment
@@ -45,14 +45,70 @@ router.post(
 router.get('/',
     // [auth, [check('text', 'Text is required').not().isEmpty()]],
     async (req, res) => {
-    try {
-        const comments = await Comment.find().sort({ date: -1 });
-        res.json(comments);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-});
+        try {
+            const comments = await Comment.find().sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
+// @route    GET api/comments/user/:user_id
+// @desc     Get all comments made by a specified user
+// @access   Private
+router.get('/user/:user_id',
+    // [auth, [check('text', 'Text is required').not().isEmpty()]],
+    async ({ params: { user_id } }, res) => {
+        try {
+            // const comments = await Comment.aggregate([
+            //     { $match: { user: ObjectId(user_id) } },
+            //     {
+            //         $lookup: {
+            //             from: "user",
+            //             localField: "user",
+            //             foreignField: "_id",
+            //             as: "userObject"
+            //         }
+            //     }
+            // ]).sort({ date: -1 });
+
+            const comments = await Comment.find({user: ObjectId(user_id)}).sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
+
+// @route    GET api/comments/movie/:movie_id
+// @desc     Get all comments made to a specified movie
+// @access   Private
+router.get('/movie/:movie_id',
+    // [auth, [check('text', 'Text is required').not().isEmpty()]],
+    async ({ params: { movie_id } }, res) => {
+        try {
+            // const comments = await Comment.aggregate([
+            //     { $match: { movie: movie_id } },
+            //     { $addFields: { user: { $toObjectId: "$user" }}},
+            //     {
+            //         $lookup: {
+            //             from: "profile",
+            //             localField: "user.",
+            //             foreignField: "_id",
+            //             as: "userItem"
+            //         }
+            //     }
+            // ]).sort({ date: -1 });
+            const comments = await Comment.find({movie: movie_id}).sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
 //
 // // @route    GET api/posts/:id
 // // @desc     Get post by ID
