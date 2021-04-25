@@ -53,10 +53,14 @@ export const getProfiles = () => async (dispatch) => {
 export const getProfileById = (userId) => async (dispatch) => {
   try {
     const res = await api.get(`/profile/user/${userId}`);
+    
     dispatch({
-      type: GET_PROFILE,
-      payload: res.data
-    });
+      type: GET_PROFILE_BY_ID,
+      payload: {
+        userId: userId,
+        data: res.data
+      }
+    })
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -65,22 +69,6 @@ export const getProfileById = (userId) => async (dispatch) => {
   }
 };
 
-
-// Get Github repos
-export const getGithubRepos = (username) => async (dispatch) => {
-  try {
-    const res = await api.get(`/profile/github/${username}`);
-
-    dispatch({
-      type: GET_REPOS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: NO_REPOS
-    });
-  }
-};
 
 // Create or update profile
 export const createProfile = (formData, history, edit = false) => async (

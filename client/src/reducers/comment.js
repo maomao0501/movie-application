@@ -1,5 +1,8 @@
 import {
-    GET_COMMENTS, COMMENT_ERROR, GET_COMMENTS_BY_MOVIE, GET_COMMENTS_BY_USER
+    GET_COMMENTS, 
+    COMMENT_ERROR, 
+    GET_COMMENTS_BY_MOVIE, 
+    GET_COMMENTS_BY_USER
 } from '../actions/types';
 
 const initialState = {
@@ -14,7 +17,6 @@ export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        // case GET_PROFILE:
         case GET_COMMENTS:
             return {
                 ...state,

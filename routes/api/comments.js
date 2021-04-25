@@ -26,7 +26,8 @@ router.post(
                 user: req.user.id,
                 movie: req.body.movieId,
                 text: req.body.text,
-                avatar: user.avatar
+                avatar: user.avatar,
+                date: Date.now()
             });
 
             const post = await newComment.save();
@@ -72,7 +73,6 @@ router.get('/user/:user_id',
             //         }
             //     }
             // ]).sort({ date: -1 });
-
             const comments = await Comment.find({user: ObjectId(user_id)}).sort({ date: -1 });
             res.json(comments);
         } catch (err) {
@@ -94,8 +94,8 @@ router.get('/movie/:movie_id',
             //     { $addFields: { user: { $toObjectId: "$user" }}},
             //     {
             //         $lookup: {
-            //             from: "profile",
-            //             localField: "user.",
+            //             from: "Users",
+            //             localField: "user",
             //             foreignField: "_id",
             //             as: "userItem"
             //         }
