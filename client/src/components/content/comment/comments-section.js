@@ -5,7 +5,7 @@ import Spinner from '../../layout/Spinner';
 import { getProfiles, getCurrentProfile } from '../../../actions/profile';
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
-import {getComments} from "../../../actions/comment";
+import {getComments, getCommentsByMovie} from "../../../actions/comment";
 import CommentList from "./comment-list";
 
 const CommentSection = ({
@@ -39,6 +39,7 @@ const CommentSection = ({
 };
 
 CommentSection.propTypes = {
+    getCommentsByMovie: PropTypes.func.isRequired,
     getComments: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
@@ -49,7 +50,8 @@ CommentSection.propTypes = {
 const mapStateToProps = state => ({
     auth: state.auth,
     profile: state.profile,
-    comment: state.comment
+    comment: state.comment,
+    commentProfile: state.commentProfile
 });
 
 export default connect(

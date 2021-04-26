@@ -30,7 +30,6 @@ const UserProfile = (props) => {
                                     {tag}
                                 </li>
                             ))}
-
                         </ul>
                     </div>
                 }

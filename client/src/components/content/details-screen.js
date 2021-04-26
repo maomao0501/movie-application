@@ -2,24 +2,24 @@ import React, {useEffect, useState} from "react";
 import {Link, useHistory, useParams} from "react-router-dom";
 import movieService from "../services/movie-service";
 import CommentList from "./comment/comment-list";
-import { getComments } from '../../actions/comment';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import Spinner from "../layout/Spinner";
 import CommentSection from "./comment/comments-section";
 
 const DetailsScreen = () => {
-    const {imdbID} = useParams();
+    const {tmdbID} = useParams();
     const history = useHistory();
     const [movie, setMovie] = useState({});
     useEffect(() => {
-        findMovieByIMDB();
+        findMovieByTMDB();
     },[])
-    const findMovieByIMDB = () => {
-        movieService.findMovieByIMDB(imdbID)
+    const findMovieByTMDB = () => {
+        movieService.findMovieByTMDB(tmdbID)
             .then((data) => {
                 setMovie(data)
             })
+        console.log(movie);
     }
     return (
         <div>

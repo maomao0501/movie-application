@@ -5,13 +5,16 @@ import {
   UPDATE_PROFILE,
   GET_PROFILES,
   GET_REPOS,
-  NO_REPOS
+  NO_REPOS,
+  GET_PROFILE_BY_ID
 } from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: [],
   repos: [],
+  userId: null,
+  profileById: null,
   loading: true,
   error: {}
 };
@@ -31,6 +34,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profiles: payload,
+        loading: false
+      };
+    case GET_PROFILE_BY_ID:
+      return {
+        ...state,
+        userId: payload.userId,
+        profileById: payload.data,
         loading: false
       };
     case PROFILE_ERROR:

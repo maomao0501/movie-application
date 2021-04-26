@@ -43,12 +43,12 @@ const App = () => {
             <Route path={["/search", "/search/:title", "/search/:title/page/:pageId"]} exact={true}>
               <SearchScreen/>
             </Route>
-            <Route path="/details/:imdbID" exact={true}>
+            <Route path="/details/:tmdbID" exact={true}>
               <DetailsScreen/>
             </Route>
-            <Route path="/watch" exact={true}>
-              <WatchList/>
-            </Route>
+            {/*<Route path="/watchlist" exact={true}>*/}
+            {/*  <WatchList/>*/}
+            {/*</Route>*/}
             <Route path="/favorite" exact={true}>
               <FavoriteList/>
             </Route>

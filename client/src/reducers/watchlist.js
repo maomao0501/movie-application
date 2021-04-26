@@ -1,14 +1,9 @@
 import {
-    GET_COMMENTS, 
-    COMMENT_ERROR, 
-    GET_COMMENTS_BY_MOVIE, 
-    GET_COMMENTS_BY_USER
+    GET_WATCHLIST, WATCHLIST_ERROR
 } from '../actions/types';
 
 const initialState = {
-    user: null,
-    comment: null,
-    comments: [],
+    movies: [],
     loading: true,
     error: {}
 };
@@ -17,22 +12,11 @@ export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        case GET_COMMENTS:
+        // case GET_PROFILE:
+        case GET_WATCHLIST:
             return {
                 ...state,
-                comments: payload,
-                loading: false
-            };
-        case GET_COMMENTS_BY_MOVIE:
-            return {
-                ...state,
-                comments: payload,
-                loading: false
-            };
-        case GET_COMMENTS_BY_USER:
-            return {
-                ...state,
-                comments: payload,
+                movies: payload,
                 loading: false
             };
         // case UPDATE_PROFILE:
@@ -41,12 +25,11 @@ export default function (state = initialState, action) {
         //         profile: payload,
         //         loading: false
         //     };
-        case COMMENT_ERROR:
+        case WATCHLIST_ERROR:
             return {
                 ...state,
                 error: payload,
-                loading: false,
-                comment: null
+                loading: false
             };
         default:
             return state;

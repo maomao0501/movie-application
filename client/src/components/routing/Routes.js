@@ -9,6 +9,7 @@ import Profiles from '../community/profiles/Profiles';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import UserProfile from "../community/profiles/user-profile";
+import WatchList from "../content/watch-list";
 
 const Routes = props => {
   return (
@@ -23,6 +24,7 @@ const Routes = props => {
                render={props =>
                    <UserProfile {...props} />}/>
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/watchlist" component={WatchList} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
         <Route component={NotFound} />
