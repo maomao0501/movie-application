@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import movieIcon from '../../../asset/movie-icon.png';
 import {connect} from "react-redux";
 import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
+import {deleteWatchlist} from "../../../actions/watchlist";
 
 const MovieCard = ({movie, isAuthenticated}) => {
     const [iconSrc, setIconSrc] = useState(`https://image.tmdb.org/t/p/original/${movie.poster_path}`)
@@ -20,7 +21,11 @@ const MovieCard = ({movie, isAuthenticated}) => {
                         <div>
                             {/*TODO: add successful msg*/}
                             <div className="mt-3">
-                                <button className="btn btn-primary">Add to WatchList</button>
+                                <button
+                                    // onClick={}
+                                    className="btn btn-primary">
+                                    Add to WatchList
+                                </button>
                             </div>
                             <div className="mt-1">
                                 <button className="btn btn-warning">Add to FavoriteList</button>
@@ -56,5 +61,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, { }
 )(MovieCard);
