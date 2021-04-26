@@ -64,11 +64,10 @@ export const getCommentsByUser = (userId) => async (dispatch) => {
 export const deleteComment = (commentId) => async (dispatch) => {
     if (window.confirm('Are you sure? This can NOT be undone!')) {
         try {
-            await api.delete('api/comments/:commentId');
-
+            const res = await api.delete(`/comments/${commentId}`);
             dispatch({
                 type: REMOVE_COMMENT,
-                payload: commentId
+                payload: res.data
             });
 
             dispatch(setAlert('Your comment has been permanently deleted'));
@@ -81,7 +80,7 @@ export const deleteComment = (commentId) => async (dispatch) => {
     }
 }
 
-export const postComment = (commentData, edit = false) => async (dispatch) => {
+export const postComment = (commentData) => async (dispatch) => {
     try {
         const res = await api.post('/comments', commentData);
         dispatch({
@@ -89,7 +88,7 @@ export const postComment = (commentData, edit = false) => async (dispatch) => {
             payload: res.data
         });
 
-        dispatch(setAlert(edit ? 'Comment updated' : 'Comment posted', 'success'));
+        // dispatch(setAlert('Comment posted', 'success'));
 
     } catch (err) {
         const errors = err.response.data.errors;

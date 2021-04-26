@@ -6,6 +6,7 @@ import {getProfileById} from '../../../actions/profile'
 import { deleteComment } from '../../../actions/comment';
 
 const CommentItem = ({ 
+    deleteComment,
     comment,
     userId,
     profileById,
@@ -24,7 +25,7 @@ const CommentItem = ({
     }, [getProfileById])
     return (
         profile != null &&
-            <div>
+            <>
             <li className="list-group-item">
                 <div className="row">
                     <div className="col-2">
@@ -38,6 +39,7 @@ const CommentItem = ({
                         (isAuthenticated && user._id == profile.user._id) &&
                         <button className="btn btn-warning float-right"
                         onClick={() =>{
+                            console.log(comment._id)
                             deleteComment(comment._id)
                         }}>
                             Delete comment
@@ -54,15 +56,14 @@ const CommentItem = ({
                     </div>
                 </div>
             </li>
-        </div>
+        </>
     )
 }
 
 CommentItem.propTypes = {
     auth: PropTypes.object.isRequired,
     getProfileById: PropTypes.func.isRequired,
-    profileById: PropTypes.object.isRequired,
-    userId: PropTypes.object.isRequired
+    deleteComment: PropTypes.func.isRequired
   };
   
   const mapStateToProps = state => ({
@@ -73,5 +74,5 @@ CommentItem.propTypes = {
   
   export default connect(
     mapStateToProps,
-    { getProfileById }
+    { getProfileById, deleteComment }
   )(CommentItem);

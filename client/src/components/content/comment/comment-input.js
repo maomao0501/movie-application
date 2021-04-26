@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,31 +10,22 @@ const CommentInput = (
         postComment,
         auth: { isAuthenticated, user }
     }) => {
-    const [formData, setFormData] = useState({
-        user: user==null ? "" : user._id,
-        movie: movieId,
-        avatar: user==null ? "" : user.avatar,
-        text: ""
-    });
+    const [text, setText] = useState("");
     return (
         <div className="row">
             <textarea
-                onChange={(e) =>
-                    setFormData((oldData) => ({
-                        ...oldData,
-                        text: e.target.value
-                    }))}
-                value={formData.text} className="form-control"
+                onChange={(e) =>setText(e.target.value)}
+                value={text} 
+                name="text"
+                className="form-control"
+                placeholder="Comment here..."
                 disabled={!isAuthenticated}></textarea>
             {
                 isAuthenticated &&
                 <button 
                     className="btn btn-primary form-control"
                     onClick={() => {
-                    setFormData((oldData) => ({
-                        ...oldData,
-                        text: ""
-                    })).then(postComment(formData, false))
+                    postComment({movieId: movieId, text: text}).then(setText(""))
                 }}
                     className="btn btn-primary">
                     Submit Comment

@@ -115,14 +115,16 @@ router.get('/movie/:movie_id',
 // @access   Private
 router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     try {
+        const user = await User.findById(req.user.id).select('-password');
+
         const comment = await Comment.findById(req.params.id);
 
         if (!comment) {
             return res.status(404).json({ msg: 'Comment not found' });
         }
-
+        console.log(comment);
         // Check user
-        if (comment.user.toString() !== req.user) {
+        if (comment.user.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'User not authorized' });
         }
 

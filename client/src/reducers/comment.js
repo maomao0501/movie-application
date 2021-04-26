@@ -38,20 +38,22 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case ADD_COMMENT:
+            const temp = [...state.comments];
+            temp.unshift(payload);
             return {
                 ...state,
-                comments: {
-                    ...state.comments,
-                    ...payload
-                },
+                comments: temp,
                 loading: false
             };
         case REMOVE_COMMENT:
+            const temp2 = [...state.comments];
             return {
                 ...state,
-                comments: state.comments.filter((comment) => {
-                    if (comment._id != payload) return true;
-                    else return false;
+                comments: temp2.filter((comment) => {
+                    console.log(comment._id);
+                    console.log(payload.toString());
+                    if(comment._id === payload) return false;
+                    else return true;
                 }),
                 loading: false
             };
