@@ -47,14 +47,14 @@ router.post(
 router.get('/',
     // [auth, [check('text', 'Text is required').not().isEmpty()]],
     async (req, res) => {
-        try {
-            const comments = await Comment.find().sort({ date: -1 });
-            res.json(comments);
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send('Server Error');
-        }
-    });
+    try {
+        const comments = await Comment.find().sort({ date: -1 });
+        res.json(comments);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route    GET api/comments/user/:user_id
 // @desc     Get all comments made by a specified user

@@ -16,10 +16,6 @@ const UserProfile = (props) => {
     const p = props.location.state.profile
     return(
         <div>
-            {/*TODO: change css style*/}
-            {/*TODO: add watch list / favorite*/}
-            {/*TODO: if log in as user, show watch list / favorite*/}
-            {/*TODO: if log in as admin, show manage user */}
             <div className='profile'>
                 <img src={p.user.avatar} alt='' className='profile-img round-img' />
                 {
@@ -56,23 +52,15 @@ const UserProfile = (props) => {
     )
 }
 
-// UserProfile.propTypes = {
-//     profile: PropTypes.object.isRequired
-// };
-//
-// export default withRouter(UserProfile)
-
 UserProfile.propTypes = {
     adminDeleteAccount: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    // profile: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    // profile: state.profile,
     isAuthenticated: state.auth.isAuthenticated
 });
 
