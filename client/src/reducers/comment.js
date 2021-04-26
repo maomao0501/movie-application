@@ -2,7 +2,9 @@ import {
     GET_COMMENTS, 
     COMMENT_ERROR, 
     GET_COMMENTS_BY_MOVIE, 
-    GET_COMMENTS_BY_USER
+    GET_COMMENTS_BY_USER,
+    ADD_COMMENT,
+    REMOVE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +35,24 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 comments: payload,
+                loading: false
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: {
+                    ...state.comments,
+                    ...payload
+                },
+                loading: false
+            };
+        case REMOVE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.filter((comment) => {
+                    if (comment._id != payload) return true;
+                    else return false;
+                }),
                 loading: false
             };
         // case UPDATE_PROFILE:

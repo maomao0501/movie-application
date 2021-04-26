@@ -1,8 +1,10 @@
 import React from 'react'
 import CommentItem from "./comment-item";
 
-const CommentList = ({comments}) =>
-    <div>
+const CommentList = ({
+    comments
+}) =>
+    <div className="row">
         <ul className="list-group">
             {
                 comments.map((comment) =>

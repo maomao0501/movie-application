@@ -25,10 +25,11 @@ const DetailsScreen = () => {
         <div>
             <button  className="btn btn-success" onClick={() => {history.goBack()}}>Back</button>
             <h2>{movie.title}</h2>
-            <p>
-                <img width={300} style={{float: "right"}} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
-                {movie.overview}
-            </p>
+            <div className="row">
+                <div className="col-8">{movie.overview}</div>
+                <img className="col-4" 
+                width={300} style={{float: "right"}} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
+            </div>
             <div>
                 {movie.original_title}
                 <br/>
@@ -36,7 +37,7 @@ const DetailsScreen = () => {
             </div>
             {/*TODO: load comment without auth (without login), */}
             {/*TODO: show comment user (who create the comment) as link to profile*/}
-            <CommentSection/>
+            <CommentSection movieId={tmdbID}/>
         </div>
     )
 }

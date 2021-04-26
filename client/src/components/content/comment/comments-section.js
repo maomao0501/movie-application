@@ -3,37 +3,33 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
 import { getProfiles, getCurrentProfile } from '../../../actions/profile';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import {getComments, getCommentsByMovie} from "../../../actions/comment";
+import { getComments, getCommentsByMovie } from "../../../actions/comment";
 import CommentList from "./comment-list";
+import CommentInput from "./comment-input"
 
 const CommentSection = ({
-                      getComments,
-                      getCurrentProfile,
-                      auth: { isAuthenticated, user }, profile,
-                      comment: { comments, loading }
-                  }) => {
+    movieId,
+    getComments,
+    getCommentsByMovie,
+    getCurrentProfile,
+    profile,
+    comment: { comments, loading }
+}) => {
     useEffect(() => {
-        getCurrentProfile();
+        getCurrentProfile()
+    }, [])
+    useEffect(() => {
         getComments();
-    }, [getComments, getCurrentProfile]);
+        // getCommentsByMovie(movieId);
+    }, [getComments, comments]);
 
     return (
         <>
             <h1>comment section</h1>
-            <CommentList comments={comments}/>
-            {/*{*/}
-            {/*    isAuthenticated &&*/}
-            {/*        console.log("user", user)*/}
-            {/*}*/}
-            {/*{*/}
-            {/*    console.log(comments)*/}
-            {/*}*/}
-            {/*{*/}
-            {/*    loading &&*/}
-            {/*    console.log("comments:", comments)*/}
-            {/*}*/}
+            <CommentInput movieId={movieId} />
+            <CommentList comments={comments} />
         </>
     );
 };
@@ -48,13 +44,11 @@ CommentSection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
     profile: state.profile,
-    comment: state.comment,
-    commentProfile: state.commentProfile
+    comment: state.comment
 });
 
 export default connect(
     mapStateToProps,
-    { getCurrentProfile, getComments }
+    { getCurrentProfile, getComments, getCommentsByMovie }
 )(CommentSection);
