@@ -7,7 +7,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  UPDATE_USER
 } from './types';
 
 // Load User
@@ -77,3 +78,30 @@ export const login = (email, password, role) => async dispatch => {
 
 // Logout
 export const logout = () => ({ type: LOGOUT });
+
+//update user
+export const update = (_id, email, role) => async dispatch => {
+  const body = { _id, email, role };
+  try {
+    const res = await api.put('/auth', body);
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data
+    });
+
+    dispatch(loadUser());
+
+    dispatch(setAlert('Profile Updated', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: AUTH_ERROR
+    });
+  }
+};

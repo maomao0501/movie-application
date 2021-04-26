@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../../actions/profile";
 
 const initialState = {
-  // TODO: delete unused attributes
   movieTag: "",
   bio: "",
 };
@@ -18,17 +17,12 @@ const ProfileForm = ({
 }) => {
   const [formData, setFormData] = useState(initialState);
 
-  const [displaySocialInputs, toggleSocialInputs] = useState(false);
-
   useEffect(() => {
     if (!profile) getCurrentProfile();
     if (!loading && profile) {
       const profileData = { ...initialState };
       for (const key in profile) {
         if (key in profileData) profileData[key] = profile[key];
-      }
-      for (const key in profile.social) {
-        if (key in profileData) profileData[key] = profile.social[key];
       }
       if (Array.isArray(profileData.movieTag))
         profileData.movieTag = profileData.movieTag.join(", ");
@@ -93,7 +87,7 @@ ProfileForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(

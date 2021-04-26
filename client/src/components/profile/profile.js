@@ -19,13 +19,14 @@ const Profile = ({
 
   return (
     <>
-      <div className="home-title">
-        {
-          user &&
-            <ProfileInfo user={user}/>
-        }
-      </div>
-
+      {
+        user &&
+        <div className="home-title">
+      
+          <ProfileInfo user={user}/>
+        
+        </div>
+      } 
         {
             user && user.role === "user" &&
             <div className="container bg-color-light">
@@ -65,7 +66,6 @@ const Profile = ({
               <ManageUsers/>
         }
         {
-          console.log(user)
         }
       <SearchScreenLogin/>
     </ >
