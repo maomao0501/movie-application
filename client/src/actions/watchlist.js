@@ -1,8 +1,9 @@
 import api from '../utils/api';
 import { setAlert } from './alert';
+import movieService from '../components/services/movie-service'
 
 import {
-    GET_WATCHLIST, WATCHLIST_ERROR, REMOVE_WATCHLIST, GET_WATCHLIST_BY_ID, ADD_WATCHLIST
+    GET_WATCHLIST, WATCHLIST_ERROR, REMOVE_WATCHLIST, GET_WATCHLIST_BY_ID, ADD_WATCHLIST,GET_MOVIE_BY_MOVIE_ID
 } from './types';
 
 // Get watchlist
@@ -81,6 +82,27 @@ export const deleteWatchlist = (watchlistId) => async (dispatch) => {
         dispatch({
             type: WATCHLIST_ERROR,
             // payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+
+
+// Get movie by movie Id from movie service
+export const getMovieNameById = (tmdbId) => async (dispatch) => {
+    try {
+        const res = await movieService.findMovieByTMDB(tmdbId);
+
+        dispatch({
+            type: GET_MOVIE_BY_MOVIE_ID,
+            payload: {
+                data:res.data,
+                movieId: tmdbId
+            }
+        });
+    } catch (err) {
+        dispatch({
+            type: WATCHLIST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
         });
     }
 };

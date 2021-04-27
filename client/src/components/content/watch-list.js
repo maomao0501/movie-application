@@ -14,13 +14,18 @@ const WatchList = (
         getCurrentProfile,
         deleteWatchlist,
         auth: { isAuthenticated, user }, profile,
-        watchlist: { movies, loading }
+        watchlist: { movies, loading , movieId, movieById}
     }) => {
-    // const [movieTitle, setMovieTitle] = useState({});
+    const [movieTitle, setMovieTitle] = useState("");
     useEffect(() => {
         getCurrentProfile();
         getWatchlist();
-    }, [getWatchlist, deleteWatchlist]);
+    }, [deleteWatchlist]);
+    useEffect(() => {
+        if (movieId == movie._id){
+            setMovieTitle(movieById.title
+        }
+    }, [movieId, movie])
     function refreshPage() {
         window.location.reload(false);
     }
@@ -43,8 +48,8 @@ const WatchList = (
                         {
                             movies.filter((movie) =>
                                 movie.user === user._id
-                            ).map((movie) =>
-                            <li className="list-group-item">
+                            ).map((movie) =>{
+                                return <li className="list-group-item">
 
                                 <Link to={`/details/${movie.movie}`}>
                                     {/*{*/}
@@ -57,7 +62,7 @@ const WatchList = (
                                         // console.log(movieTitle)
                                     }
                                     {/*TODO: show movie title here*/}
-                                    {movie.movie}
+                                    {movieTitle}
                                 </Link>
                                 <button
                                     onClick={() => {
@@ -67,7 +72,8 @@ const WatchList = (
                                     className="btn btn-danger float-right">
                                     Remove
                                 </button>
-                            </li>
+                            </li>}
+
                         )}
                     </ul>
             }

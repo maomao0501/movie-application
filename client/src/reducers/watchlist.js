@@ -1,10 +1,12 @@
 import {
-    GET_WATCHLIST, GET_WATCHLIST_BY_ID, WATCHLIST_ERROR, REMOVE_WATCHLIST, ADD_WATCHLIST
+    GET_WATCHLIST, GET_WATCHLIST_BY_ID, WATCHLIST_ERROR, REMOVE_WATCHLIST, ADD_WATCHLIST, GET_MOVIE_BY_MOVIE_ID
 } from '../actions/types';
 
 const initialState = {
     movie: null,
     movies: [],
+    movieId: "",
+    movieById: "",
     loading: true,
     error: {}
 };
@@ -31,6 +33,13 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 movies: temp,
+                loading: false
+            }
+        case GET_MOVIE_BY_MOVIE_ID:
+            return {
+                ...state,
+                movieById: payload.data,
+                movieId: payload.movieId,
                 loading: false
             }
         case REMOVE_WATCHLIST:
