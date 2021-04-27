@@ -1,31 +1,32 @@
-import React, {useEffect} from 'react'
-import {Link, useParams} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router";
-import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
-import {connect} from "react-redux";
+import { adminDeleteAccount, getCurrentProfile, getProfileById } from "../../../actions/profile";
+import { connect } from "react-redux";
 
-const UserProfile = (props) => {
+const UserProfile = ({
+    auth: { isAuthenticated, user },
+    profileById,
+    getProfileById,
+    adminDeleteAccount
+}) => {
+    const { profileId } = useParams();
     useEffect(() => {
-        {
-            props.isAuthenticated &&
-            props.getCurrentProfile();
-        }
-        }, [props.getCurrentProfile]);
-    const {profileId} = useParams();
-    const p = props.location.state.profile
-    return(
+        getProfileById(profileId)
+    }, [profileId])
+    return (
+        (profileById != null) &&
         <div>
             <div className='profile'>
-                <img src={p.user.avatar} alt='' className='profile-img round-img' />
+                <img src={profileById.user.avatar} alt='' className='profile-img round-img' />
                 {
-                    props.isAuthenticated && props.auth.user && props.auth.user.role === "user" &&
+                    isAuthenticated && user && user.role === "user" &&
                     <div>
-                        <h2>This is {p.user.name} 's profile:</h2>
-                        <p className='my-1'>My bio: {p.bio}</p>
+                        <h2>This is {profileById.user.name} 's profile:</h2>
+                        <p className='my-1'>My bio: {profileById.bio}</p>
                         <p>Favorite movie genre:</p>
                         <ul>
-                            {p.movieTag.slice(0, 4).map((tag, index) => (
+                            {profileById.movieTag.slice(0, 4).map((tag, index) => (
                                 <li key={index} className='text-primary'>
                                     {tag}
                                 </li>
@@ -34,15 +35,15 @@ const UserProfile = (props) => {
                     </div>
                 }
                 {
-                    !props.isAuthenticated && !props.auth.user &&
+                    !isAuthenticated && !user &&
                     <Link to="/login">
                         Please Login to see the profile!
                     </Link>
                 }
                 {
-                    props.isAuthenticated && props.auth.user && props.auth.user.role === "admin" &&
+                    isAuthenticated && user && user.role === "admin" &&
                     <Link to="/">
-                        <button className="btn btn-danger" onClick={() => props.adminDeleteAccount(profileId)}>
+                        <button className="btn btn-danger" onClick={() => adminDeleteAccount(profileId)}>
                             admin delete
                         </button>
                     </Link>
@@ -54,17 +55,16 @@ const UserProfile = (props) => {
 
 UserProfile.propTypes = {
     adminDeleteAccount: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated
+    profileById: state.profile.profileById
 });
 
 export default connect(
     mapStateToProps,
-    { getCurrentProfile, adminDeleteAccount }
-)(withRouter(UserProfile));
+    { adminDeleteAccount, getProfileById }
+)(UserProfile);
