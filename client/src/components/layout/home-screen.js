@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PopularMoviesTopFive from "../content/popular-movies-landing";
 import TopRatedMovies from "../content/top-rating-movies";
+import UserComment from '../content/comment/user-comment';
 
-const HomeScreen = ({ isAuthenticated }) => {
+const HomeScreen = ({ auth: { isAuthenticated, user } }) => {
   return (
     <section className='landing'>
       <div className=''>
@@ -28,24 +29,27 @@ const HomeScreen = ({ isAuthenticated }) => {
         </div>
         {
           isAuthenticated &&
-          <TopRatedMovies/>
+          <>
+            <UserComment userId={user._id}/>
+              <TopRatedMovies />
+          </>
         }
         {
-          !isAuthenticated &&
-          <PopularMoviesTopFive/>
-        }
+              !isAuthenticated &&
+              <PopularMoviesTopFive />
+            }
 
-      </div>
+          </div>
     </section>
   );
 };
 
 HomeScreen.propTypes = {
-  isAuthenticated: PropTypes.bool
+        isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 
 export default connect(mapStateToProps)(HomeScreen);
