@@ -65,8 +65,6 @@ const Profile = ({
           user && user.role === "admin" &&
               <ManageUsers/>
         }
-        {
-        }
       <SearchScreenLogin/>
     </ >
   );
