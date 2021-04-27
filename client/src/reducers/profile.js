@@ -4,15 +4,12 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS,
   GET_PROFILE_BY_ID
 } from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   userId: null,
   profileById: null,
   loading: true,
@@ -53,19 +50,7 @@ export default function (state = initialState, action) {
     case CLEAR_PROFILE:
       return {
         ...state,
-        profile: null,
-        repos: []
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
-        loading: false
-      };
-    case NO_REPOS:
-      return {
-        ...state,
-        repos: []
+        profile: null
       };
     default:
       return state;
