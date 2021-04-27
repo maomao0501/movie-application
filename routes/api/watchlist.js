@@ -31,8 +31,6 @@ router.post(
             const post = await newWatchMovie.save();
 
             res.json(post);
-
-            res.json({ msg: 'Movie added' });
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server Error');
@@ -55,7 +53,7 @@ router.get('/',
         }
     });
 
-// @route    GET api/watchlist
+// @route    GET api/watchlist/:
 // @desc     Get all watchlist
 // @access   Private
 router.get('/:watchlistId',

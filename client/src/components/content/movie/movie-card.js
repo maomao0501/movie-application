@@ -14,10 +14,10 @@ const MovieCard = (
         auth: { isAuthenticated, user }
     }) => {
     const [iconSrc, setIconSrc] = useState(`https://image.tmdb.org/t/p/original/${movie.poster_path}`)
-    const [formData, setFormData] = useState({
-        user: user == null? "" : user._id,
-        movie: movie.id
-    })
+    // const [formData, setFormData] = useState({
+    //     user: user == null? "" : user._id,
+    //     movie: movie.id
+    // })
     function refreshPage() {
         window.location.reload(false);
     }
@@ -36,9 +36,9 @@ const MovieCard = (
                             <div className="mt-3">
                                 <button
                                     onClick={() => {
-                                        createWatchlist(formData)
-                                        refreshPage()
-                                        alert("Added to watchlist!")
+                                        createWatchlist({user: user._id, movie: movie.id})
+                                        // refreshPage()
+                                        // alert("Added to watchlist!")
                                     }}
                                     className="btn btn-primary">
                                     Add to WatchList

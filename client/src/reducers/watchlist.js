@@ -26,12 +26,11 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case ADD_WATCHLIST:
+            const temp = [...state.movies];
+            temp.push(payload)
             return {
                 ...state,
-                movies: {
-                    ...state.comments,
-                    ...payload
-                },
+                movies: temp,
                 loading: false
             }
         case REMOVE_WATCHLIST:

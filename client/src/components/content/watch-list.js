@@ -20,7 +20,7 @@ const WatchList = (
     useEffect(() => {
         getCurrentProfile();
         getWatchlist();
-    }, [getWatchlist, getCurrentProfile, watchlist, deleteWatchlist]);
+    }, [getWatchlist, deleteWatchlist]);
     function refreshPage() {
         window.location.reload(false);
     }
@@ -37,6 +37,9 @@ const WatchList = (
             {
                 !loading && isAuthenticated &&
                     <ul className="list-group">
+                        {
+                            console.log(movies)
+                        }
                         {
                             movies.filter((movie) =>
                                 movie.user === user._id
