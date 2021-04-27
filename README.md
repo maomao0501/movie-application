@@ -28,6 +28,7 @@ cd client
 npm run build
 ```
 
+### Terminating Node process
 
-
-
+```bash
+pkill node

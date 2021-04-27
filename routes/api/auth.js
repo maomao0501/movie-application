@@ -84,4 +84,43 @@ router.post(
   }
 );
 
+
+// @route    PUT api/users
+// @desc     Login user
+// @access   Public
+router.put(
+  '/',
+  [
+    check('role', 'Role is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    console.log('req.body ', req.body);
+    const { _id, email, role } = req.body;
+
+    try {
+      let user = await User.findOneAndUpdate(
+        { _id },
+        { email, role },
+        { upsert: true, new: true }
+      );
+
+      if (!user) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User not exist, Not able to update' }] });
+      }
+      return res.json(user);
+      
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
 module.exports = router;

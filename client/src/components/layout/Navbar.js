@@ -7,55 +7,50 @@ import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Navbar = ({ auth: { isAuthenticated, user }, logout, getCurrentProfile}) => {
   useEffect(() => {
-    { isAuthenticated &&
-      getCurrentProfile();
-    }}, [getCurrentProfile]);
+    { isAuthenticated && getCurrentProfile(); }
+  }, [getCurrentProfile]);
 
   const authLinks = (
-    <ul>
-      <li>
-        <Link className="nav-link" to="/profile">
-          {
-            isAuthenticated && user &&
-              <span className="hide-sm">{user.name}</span>
-          }
-          {
-            !isAuthenticated &&
-            <span className="hide-sm">Register</span>
-          }
-        </Link>
-      </li>
-      <li>
-        <Link to="/">
-          <a className="nav-link" onClick={logout} href="#!">
-            <span className="hide-sm">LOGOUT</span>
-          </a>
-        </Link>
-      </li>
-    </ul>
+    <div className="row justify-content-center align-items-center">
+      <Link className="nav-link" to="/profile">
+        {
+          isAuthenticated && user &&
+            <span className="hide-sm">{user.name}</span>
+        }
+        {
+          !isAuthenticated &&
+          <span className="hide-sm">Register</span>
+        }
+      </Link>
+      <Link to="/">
+        <a className="nav-link" onClick={logout} href="#!">
+          <span>&nbsp;&nbsp;</span>
+          <span className="hide-sm">LOGOUT</span>
+        </a>
+      </Link>
+    </div>
   );
 
   const guestLinks = (
-    <ul>
-      <li>
-        <Link className="nav-link" to="/register">REGISTER</Link>
-      </li>
-      <li>
-        <Link className="nav-link" to="/login">LOGIN</Link>
-      </li>
-    </ul>
+    <div className="row justify-content-center align-items-center">
+      <Link className="nav-link" to="/register">REGISTER</Link>
+      <span>&nbsp;&nbsp;</span>
+      <Link className="nav-link" to="/login">LOGIN</Link>
+    </div>
   );
 
   return (
     <nav className="fixed-nav-bar">
       <header>
-        <h1>Movie Page Information</h1>
+        {/* <h1>Movie Page Information</h1> */}
 
-        <section id="nav-bar">
+        <section id="d-flex flex-row">
           <nav className="navbar navbar-expand-lg navbar-light bg-transparent">
             <Link className="navbar-brand" to="/">
-              <img style={{ width: "80px", height: "60px" }} src={require('../../asset/tmdb.png')} alt={""} />
-              <a className="ml-2">Home</a>
+              <div className="row justify-content-center align-items-center">
+                <img style={{ width: "80px", height: "60px" }} src={require('../../asset/tmdb.png')} alt={""} />
+                <h2 className="ml-2">Home</h2>
+              </div>
             </Link>
             <button
               className="navbar-toggler"

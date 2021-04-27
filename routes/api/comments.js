@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const checkObjectId = require('../../middleware/checkObjectId');
 
 const Comment = require('../../models/comment');
 const User = require('../../models/User');
-const checkObjectId = require('../../middleware/checkObjectId');
+var ObjectId = require('mongodb').ObjectId;
 
 // @route    POST api/comments
 // @desc     Create a comment
@@ -26,7 +27,8 @@ router.post(
                 user: req.user.id,
                 movie: req.body.movieId,
                 text: req.body.text,
-                avatar: user.avatar
+                avatar: user.avatar,
+                date: Date.now()
             });
 
             const post = await newComment.save();
@@ -45,59 +47,95 @@ router.post(
 router.get('/',
     // [auth, [check('text', 'Text is required').not().isEmpty()]],
     async (req, res) => {
+        try {
+            const comments = await Comment.find().sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
+// @route    GET api/comments/user/:user_id
+// @desc     Get all comments made by a specified user
+// @access   Public
+router.get('/user/:user_id',
+    // [auth, [check('text', 'Text is required').not().isEmpty()]],
+    async ({ params: { user_id } }, res) => {
+        try {
+            // const comments = await Comment.aggregate([
+            //     { $match: { user: ObjectId(user_id) } },
+            //     {
+            //         $lookup: {
+            //             from: "user",
+            //             localField: "user",
+            //             foreignField: "_id",
+            //             as: "userObject"
+            //         }
+            //     }
+            // ]).sort({ date: -1 });
+            const comments = await Comment.find({user: ObjectId(user_id)}).sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
+
+// @route    GET api/comments/movie/:movie_id
+// @desc     Get all comments made to a specified movie
+// @access   Public
+router.get('/movie/:movie_id',
+    // [auth, [check('text', 'Text is required').not().isEmpty()]],
+    async ({ params: { movie_id } }, res) => {
+        try {
+            // const comments = await Comment.aggregate([
+            //     { $match: { movie: movie_id } },
+            //     { $addFields: { user: { $toObjectId: "$user" }}},
+            //     {
+            //         $lookup: {
+            //             from: "Users",
+            //             localField: "user",
+            //             foreignField: "_id",
+            //             as: "userItem"
+            //         }
+            //     }
+            // ]).sort({ date: -1 });
+            const comments = await Comment.find({movie: movie_id}).sort({ date: -1 });
+            res.json(comments);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error');
+        }
+    });
+
+// @route    DELETE api/comments/:id
+// @desc     Delete a post
+// @access   Private
+router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
     try {
-        const comments = await Comment.find().sort({ date: -1 });
-        res.json(comments);
+        const user = await User.findById(req.user.id).select('-password');
+
+        const comment = await Comment.findById(req.params.id);
+
+        if (!comment) {
+            return res.status(404).json({ msg: 'Comment not found' });
+        }
+        // Check user
+        if (comment.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+
+        await comment.remove();
+
+        res.json(req.params.id);
     } catch (err) {
         console.error(err.message);
+
         res.status(500).send('Server Error');
     }
 });
-//
-// // @route    GET api/posts/:id
-// // @desc     Get post by ID
-// // @access   Private
-// router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
-//     try {
-//         const post = await Post.findById(req.params.id);
-//
-//         if (!post) {
-//             return res.status(404).json({ msg: 'Post not found' })
-//         }
-//
-//         res.json(post);
-//     } catch (err) {
-//         console.error(err.message);
-//
-//         res.status(500).send('Server Error');
-//     }
-// });
-//
-// // @route    DELETE api/posts/:id
-// // @desc     Delete a post
-// // @access   Private
-// router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
-//     try {
-//         const post = await Post.findById(req.params.id);
-//
-//         if (!post) {
-//             return res.status(404).json({ msg: 'Post not found' });
-//         }
-//
-//         // Check user
-//         if (post.user.toString() !== req.user.id) {
-//             return res.status(401).json({ msg: 'User not authorized' });
-//         }
-//
-//         await post.remove();
-//
-//         res.json({ msg: 'Post removed' });
-//     } catch (err) {
-//         console.error(err.message);
-//
-//         res.status(500).send('Server Error');
-//     }
-// });
 //
 // // @route    PUT api/posts/like/:id
 // // @desc     Like a post

@@ -12,14 +12,14 @@ const PopularMoviesTopFive = () => {
     }, [])
     return (
         <div>
-            <ul className="list-group">
+            <div className="list-group">
                 {
                     results.results &&
                     <MovieGrid
-                        movies={results.results.slice(0, 5)}
-                        msg="Most recent popular movies - Top 5"/>
+                        movies={results.results.slice(0, 6)}
+                        msg="Most recent popular movies - Top 6"/>
                 }
-            </ul>
+            </div>
         </div>
     )
 };

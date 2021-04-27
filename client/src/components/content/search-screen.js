@@ -43,7 +43,7 @@ const SearchScreen = () => {
         }
     }
     return (
-        <div>
+        <div style={{padding: '2rem'}}>
             <div className="row mt-3">
                 <div className="col-10">
                     <input value={searchTitle}
