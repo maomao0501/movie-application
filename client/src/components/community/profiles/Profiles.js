@@ -43,20 +43,14 @@ const Profiles = ({
                         }
                         {
                              !isAuthenticated &&
-                             <Link to={{
-                                   pathname: `/profile/${p.user._id}`,
-                                   state: {profile: p}
-                                 }}>
+                             <Link to={`/profile/${p.user._id}`}>
                                    {p.user.name}
                              </Link>
                         }
                           {
                               isAuthenticated &&
                               user._id !== p.user._id &&
-                              <Link to={{
-                                  pathname: `/profile/${p.user._id}`,
-                                  state: {profile: p}
-                              }}>
+                              <Link to={`/profile/${p.user._id}`}>
                                   {p.user.name}
                               </Link>
                           }
