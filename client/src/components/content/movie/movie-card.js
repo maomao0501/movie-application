@@ -4,10 +4,23 @@ import PropTypes from 'prop-types';
 import movieIcon from '../../../asset/movie-icon.png';
 import {connect} from "react-redux";
 import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
-import {deleteWatchlist} from "../../../actions/watchlist";
+import { createWatchlist, deleteWatchlist, getWatchlist } from "../../../actions/watchlist";
+import Alert from "../../layout/Alert";
 
-const MovieCard = ({movie, isAuthenticated}) => {
+const MovieCard = (
+    {
+        movie,
+        createWatchlist,
+        auth: { isAuthenticated, user }
+    }) => {
     const [iconSrc, setIconSrc] = useState(`https://image.tmdb.org/t/p/original/${movie.poster_path}`)
+    const [formData, setFormData] = useState({
+        user: user == null? "" : user._id,
+        movie: movie.id
+    })
+    function refreshPage() {
+        window.location.reload(false);
+    }
     return(
         <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div className="card" style={{margin: "10px"}}>
@@ -22,7 +35,11 @@ const MovieCard = ({movie, isAuthenticated}) => {
                             {/*TODO: add successful msg*/}
                             <div className="mt-3">
                                 <button
-                                    // onClick={}
+                                    onClick={() => {
+                                        createWatchlist(formData)
+                                        refreshPage()
+                                        alert("Added to watchlist!")
+                                    }}
                                     className="btn btn-primary">
                                     Add to WatchList
                                 </button>
@@ -53,13 +70,14 @@ const MovieCard = ({movie, isAuthenticated}) => {
 }
 
 MovieCard.propTypes = {
-    isAuthenticated: PropTypes.bool
+    auth: PropTypes.object.isRequired,
+    createWatchlist: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.auth
 });
 
 export default connect(
-    mapStateToProps, { }
+    mapStateToProps, { createWatchlist }
 )(MovieCard);

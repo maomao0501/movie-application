@@ -1,5 +1,5 @@
 import {
-    GET_WATCHLIST, GET_WATCHLIST_BY_ID, WATCHLIST_ERROR, REMOVE_WATCHLIST
+    GET_WATCHLIST, GET_WATCHLIST_BY_ID, WATCHLIST_ERROR, REMOVE_WATCHLIST, ADD_WATCHLIST
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +13,6 @@ export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        // case GET_PROFILE:
         case GET_WATCHLIST:
             return {
                 ...state,
@@ -26,12 +25,15 @@ export default function (state = initialState, action) {
                 movie: payload,
                 loading: false
             };
-        // case UPDATE_PROFILE:
-        //     return {
-        //         ...state,
-        //         profile: payload,
-        //         loading: false
-        //     };
+        case ADD_WATCHLIST:
+            return {
+                ...state,
+                movies: {
+                    ...state.comments,
+                    ...payload
+                },
+                loading: false
+            }
         case REMOVE_WATCHLIST:
             return {
                 ...state,

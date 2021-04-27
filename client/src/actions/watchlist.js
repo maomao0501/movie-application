@@ -2,7 +2,7 @@ import api from '../utils/api';
 import { setAlert } from './alert';
 
 import {
-    GET_WATCHLIST, WATCHLIST_ERROR, REMOVE_WATCHLIST, GET_WATCHLIST_BY_ID
+    GET_WATCHLIST, WATCHLIST_ERROR, REMOVE_WATCHLIST, GET_WATCHLIST_BY_ID, ADD_WATCHLIST
 } from './types';
 
 // Get watchlist
@@ -40,17 +40,18 @@ export const getWatchlistById = () => async (dispatch) => {
 };
 
 // Create watchlist data
-export const createWatchlist = (watchMovie) => async (
+export const createWatchlist = (formData) => async (
     dispatch
 ) => {
     try {
-        const res = await api.post('/watchlist', watchMovie);
+        console.log(formData)
+        const res = await api.post('/watchlist', formData);
         dispatch({
-            type: GET_WATCHLIST,
+            type: ADD_WATCHLIST,
             payload: res.data
         });
 
-        dispatch(setAlert('success'));
+        dispatch(setAlert("Added to your watchlist!",'success'));
 
     } catch (err) {
         const errors = err.response.data.errors;
