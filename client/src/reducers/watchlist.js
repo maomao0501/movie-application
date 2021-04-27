@@ -43,8 +43,15 @@ export default function (state = initialState, action) {
                 loading: false
             }
         case REMOVE_WATCHLIST:
+            const temp2 = [...state.movies];
+            console.log(temp2);
+            console.log(payload);
             return {
                 ...state,
+                movies: temp2.filter((watchlist) => {
+                    if(watchlist._id == payload) return false;
+                    else return true;
+                }),
                 loading: false
             }
         case WATCHLIST_ERROR:

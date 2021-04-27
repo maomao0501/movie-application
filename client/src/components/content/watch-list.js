@@ -1,80 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getProfiles, getCurrentProfile } from '../../actions/profile';
+import { getCurrentProfile } from '../../actions/profile';
 import {deleteWatchlist, getWatchlist} from '../../actions/watchlist'
 import CommentItem from "./comment/comment-item";
-import {Link} from "react-router-dom";
-import watchlist from "../../reducers/watchlist";
-import movieService from "../services/movie-service";
+import WatchlistItem from './watchlist-item'
 
 const WatchList = (
     {
         getWatchlist,
         getCurrentProfile,
-        deleteWatchlist,
         auth: { isAuthenticated, user }, profile,
         watchlist: { movies, loading , movieId, movieById}
     }) => {
-    const [movieTitle, setMovieTitle] = useState("");
     useEffect(() => {
         getCurrentProfile();
         getWatchlist();
-    }, [deleteWatchlist]);
-    useEffect(() => {
-        if (movieId == movie._id){
-            setMovieTitle(movieById.title
-        }
-    }, [movieId, movie])
-    function refreshPage() {
-        window.location.reload(false);
-    }
-    // function findMovieById(id) {
-    //     movieService.findMovieByIMDB(id)
-    //         .then((result) => {
-    //             setMovieTitle(result)
-    //         })
-    // }
+    }, []);
     return (
         <div>
             {/*TODO: Watchlist match logined user, movie name as link to movie*/}
             <h1>Watch List Page</h1>
             {
+                console.log(movies)
+            }
+            {
                 !loading && isAuthenticated &&
                     <ul className="list-group">
                         {
-                            console.log(movies)
-                        }
-                        {
                             movies.filter((movie) =>
                                 movie.user === user._id
-                            ).map((movie) =>{
-                                return <li className="list-group-item">
-
-                                <Link to={`/details/${movie.movie}`}>
-                                    {/*{*/}
-                                    {/*    movieService.findMovieByIMDB(movie.movie)*/}
-                                    {/*        .then((result) => {*/}
-                                    {/*            setMovieTitle(result)*/}
-                                    {/*        })*/}
-                                    {/*}*/}
-                                    {
-                                        // console.log(movieTitle)
-                                    }
-                                    {/*TODO: show movie title here*/}
-                                    {movieTitle}
-                                </Link>
-                                <button
-                                    onClick={() => {
-                                        deleteWatchlist(movie._id)
-                                        refreshPage()
-                                    }}
-                                    className="btn btn-danger float-right">
-                                    Remove
-                                </button>
-                            </li>}
-
-                        )}
+                            ).map((movie) => <WatchlistItem movie={movie}/>)
+                        }
                     </ul>
             }
 
@@ -87,8 +44,7 @@ WatchList.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
-    watchlist: PropTypes.object.isRequired,
-    deleteWatchlist: PropTypes.func.isRequired
+    watchlist: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -99,5 +55,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getCurrentProfile, getWatchlist, deleteWatchlist}
+    { getCurrentProfile, getWatchlist}
 )(WatchList);

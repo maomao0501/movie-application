@@ -72,9 +72,9 @@ export const createWatchlist = (formData) => async (
 export const deleteWatchlist = (watchlistId) => async (dispatch) => {
     try {
         const res = await api.delete(`/watchlist/${watchlistId}`);
-
         dispatch({
-            type: REMOVE_WATCHLIST
+            type: REMOVE_WATCHLIST,
+            payload: watchlistId
         });
 
         dispatch(setAlert('Movie Removed', 'success'));
@@ -91,11 +91,10 @@ export const deleteWatchlist = (watchlistId) => async (dispatch) => {
 export const getMovieNameById = (tmdbId) => async (dispatch) => {
     try {
         const res = await movieService.findMovieByTMDB(tmdbId);
-
         dispatch({
             type: GET_MOVIE_BY_MOVIE_ID,
             payload: {
-                data:res.data,
+                data:res,
                 movieId: tmdbId
             }
         });
