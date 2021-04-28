@@ -11,6 +11,7 @@ import PrivateRoute from '../routing/PrivateRoute';
 import UserProfile from "../community/profiles/user-profile";
 import WatchList from "../content/watch-list";
 import DetailsScreen from "../content/details-screen";
+import FavoriteList from "../content/favorite-list";
 
 const Routes = props => {
   return (
@@ -27,6 +28,8 @@ const Routes = props => {
         <Route exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/watchlist" component={WatchList} />
         <PrivateRoute exact path="/watchlist/:watchlistId" component={DetailsScreen} />
+        <PrivateRoute exact path="/favoritelist" component={FavoriteList} />
+        <PrivateRoute exact path="/favoritelist/:favoritelistId" component={DetailsScreen} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
         <Route component={NotFound} />

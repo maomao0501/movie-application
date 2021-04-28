@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import {deleteWatchlist, getWatchlist} from '../../actions/watchlist'
-import CommentItem from "./comment/comment-item";
 import WatchlistItem from './watchlist-item'
 
 const WatchList = (
@@ -19,7 +18,6 @@ const WatchList = (
     }, []);
     return (
         <div>
-            {/*TODO: Watchlist match logined user, movie name as link to movie*/}
             <h1>Watch List Page</h1>
             {
                 console.log(movies)

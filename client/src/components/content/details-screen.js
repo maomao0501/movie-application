@@ -36,9 +36,6 @@ const DetailsScreen = () => {
                 <img className="col-4"
                     width="20vw" style={{ float: "right" }} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
             </div>
-
-            {/*TODO: load comment without auth (without login), */}
-            {/*TODO: show comment user (who create the comment) as link to profile*/}
             <CommentSection movieId={tmdbID} />
         </div>
     )

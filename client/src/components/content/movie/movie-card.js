@@ -5,12 +5,14 @@ import movieIcon from '../../../asset/movie-icon.png';
 import {connect} from "react-redux";
 import {adminDeleteAccount, getCurrentProfile} from "../../../actions/profile";
 import { createWatchlist, deleteWatchlist, getWatchlist } from "../../../actions/watchlist";
+import { createFavoritelist } from "../../../actions/favoritelist";
 import Alert from "../../layout/Alert";
 
 const MovieCard = (
     {
         movie,
         createWatchlist,
+        createFavoritelist,
         auth: { isAuthenticated, user }
     }) => {
     const [iconSrc, setIconSrc] = useState(`https://image.tmdb.org/t/p/original/${movie.poster_path}`)
@@ -32,7 +34,6 @@ const MovieCard = (
                     </Link>
                     { isAuthenticated &&
                         <div>
-                            {/*TODO: add successful msg*/}
                             <div className="mt-3">
                                 <button
                                     onClick={() => {
@@ -45,7 +46,16 @@ const MovieCard = (
                                 </button>
                             </div>
                             <div className="mt-1">
-                                <button className="btn btn-warning" style={{width: '100%'}}>Add to FavoriteList</button>
+                                <button
+                                    onClick={() => {
+                                        createFavoritelist({user: user._id, movie: movie.id})
+                                        // refreshPage()
+                                        // alert("Added to watchlist!")
+                                    }}
+                                    className="btn btn-warning"
+                                    style={{width: '100%'}}
+                                >Add to FavoriteList
+                                </button>
                             </div>
                         </div>
                     }
@@ -71,7 +81,8 @@ const MovieCard = (
 
 MovieCard.propTypes = {
     auth: PropTypes.object.isRequired,
-    createWatchlist: PropTypes.func.isRequired
+    createWatchlist: PropTypes.func.isRequired,
+    createFavoritelist: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -79,5 +90,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(
-    mapStateToProps, { createWatchlist }
+    mapStateToProps, { createWatchlist, createFavoritelist }
 )(MovieCard);

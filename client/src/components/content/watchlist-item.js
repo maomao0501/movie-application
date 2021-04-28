@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteWatchlist, getMovieNameById } from '../../actions/watchlist'
 import { Link } from "react-router-dom";
-import watchlist from "../../reducers/watchlist";
 
 const WatchlistItem = ({
     movie,
