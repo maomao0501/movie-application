@@ -20,7 +20,7 @@ const UserProfile = ({
             <div className='profile'>
                 <img src={profileById.user.avatar} alt='' className='profile-img round-img' />
                 {
-                    isAuthenticated && user && user.role === "user" &&
+                    isAuthenticated && user && 
                     <div>
                         <h2>This is {profileById.user.name} 's profile:</h2>
                         <p className='my-1'>My bio: {profileById.bio}</p>
